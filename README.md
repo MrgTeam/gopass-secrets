@@ -68,7 +68,7 @@ gopass init
 ```
 
 Create a .password-store GIT directory in home directory.
-- To personalize the directory go [here][https://github.com/gopasspw/gopass/blob/master/docs/features.md)
+- To personalize the directory go [here](https://github.com/gopasspw/gopass/blob/master/docs/features.md)
 
 ### Configure GIT  
 

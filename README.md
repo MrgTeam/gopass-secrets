@@ -158,6 +158,12 @@ test
 def admin_username = sh(script: "gopass show -o ${secrets_store_name}/envs/prod/presence/JWT_PASSWORD", returnStdout: true)
 ```
 
+### Useful commands 
+
+- Delete a secret key :
+```
+gpg --delete-secret-key "username"
+```
 
 ### Optional 
 

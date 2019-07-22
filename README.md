@@ -162,6 +162,8 @@ test
 def admin_username = sh(script: "gopass show -o ${secrets_store_name}/envs/prod/presence/JWT_PASSWORD", returnStdout: true)
 ```
 
+[Here a concrete pipeline configuration file](https://git-scale-tools.scale-n-eu.sanofi.com/abessifi/openshift-utils/src/master/cd-pipeline/jenkins/pipeline-with-gopass-integration.groovy)
+
 
 ### Useful commands 
 

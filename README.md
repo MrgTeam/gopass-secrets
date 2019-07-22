@@ -39,7 +39,7 @@ If ubuntu 16.04  ->  gnupg2
 
 Go to :  [Setup](https://www.gpg4win.org/)
 
-### Generate Jenkins GPG keys  !! sans passPhrase !!
+### Generate Jenkins GPG keys  !! whithout passPhrase !!
 
 Create a gen-key-script file with the following content and run the gpg command to generate the keys in batch mode:
 
@@ -65,7 +65,8 @@ $ gpg --export -a <jenkins-username> > jenkins-public-key.asc
 gopass init
 ```
 
-Create a .password-store GIT directory in home directory (to personalize go [here][https://github.com/gopasspw/gopass/blob/master/docs/features.md))
+Create a .password-store GIT directory in home directory.
+- To personalize the directory go [here][https://github.com/gopasspw/gopass/blob/master/docs/features.md)
 
 ### Configure GIT  
 

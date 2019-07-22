@@ -61,6 +61,8 @@ $ gpg --export -a <jenkins-username> > jenkins-public-key.asc
 
 ### Initialise password store 
 
+First init a private GIT repository.
+
 ```
 gopass init
 ```

@@ -53,7 +53,12 @@ Name-Real: <jenkins-username>
 Name-Email: <jenkins-email>
 Expire-Date: 5y
 
-$ gpg --batch --gen-key gen-key-script (no passphrase !)
+$ gpg --batch --gen-key gen-key-script (no passphrase - click "OK" )
+
+  result
+  gpg: clef 0.........1 marquée de confiance ultime.
+  gpg: revocation certificate stored as 'C:/Users/username/AppData/Roaming/gnupg/openpgp-revocs.d\A2D..................rev'
+
 $ gpg --export-secret-keys -a <jenkins-username> > jenkins-secret-key.asc
 $ gpg --export -a <jenkins-username> > jenkins-public-key.asc
 ```
@@ -64,40 +69,30 @@ $ gpg --export -a <jenkins-username> > jenkins-public-key.asc
 First init a private GIT repository.
 
 ```
-gopass init
+$ gopass
+  It seems you are new to gopass. Do you want to run the onboarding wizard? [Y/n/q]: Y (select local store)
+
+  [init] [local] Initializing your local store ...
+  Please select a private key for encrypting secrets:
+  [0] gpg - 0x0564165464S4 - jenkins-username <jenkins-email>
+  Please enter the number of a key (0-0, [q]uit) [0]: 0 (select the key id - here 0)
+
+  Use jenkins-username (jenkins-email) for password store git config? [Y/n/q]: Y
+  [init] [local]  -> OK
+  [init] [local] Configuring your local store ...
+  [init] [local] Do you want to add a git remote? [y/N/q]: y
+  [init] [local] Configuring the git remote ...
+  Please enter the git remote for your shared store []: http://git-scale-tools.scale-n-eu.sanofi.com/I0383327/presenceSecrets.git ( paste your git remote )
+
+  [init] [local] Do you want to automatically push any changes to the git remote (if any)? [Y/n/q]: Y
+  [init] [local] Do you want to always confirm recipients when encrypting? [y/N/q]: y
+  [init] [local]  -> OK
+  gopass (here your empty password store)
 ```
 
-Create a .password-store GIT directory in home directory.
+By default, the password store is stored in the .password-store GIT directory in home directory.
 - To personalize the directory go [here](https://github.com/gopasspw/gopass/blob/master/docs/features.md)
 
-### Configure GIT  
-
-#### List secret key 
-
-```
-$ gpg --list-secret-keys --keyid-format LONG
-
-result 
-sec   4096R/3AA5C34371567BD2 2016-03-10 [expires: 2017-03-10]
-uid                          Hubot 
-ssb   4096R/42B317FD4BA89E7A 2016-03-10
-```
-
-#### Add key to GIT config 
-
-```
-git config --local user.signingkey 3AA5C34371567BD2 (Key from list-secret-keys ...) 
-git config --local user.email <same email as gen-key-script>
-git config --local commit.gpgsign true
-```
-
-**IMPORTANT:**
-
-If ubuntu 16.04 :  
-
-```
-git config --local gpg.program gpg2
-```
 
 ### Gopass usage
 
@@ -105,6 +100,15 @@ git config --local gpg.program gpg2
 
 ```
 $ gopass insert presence/JWT_PASSWORD 
+  Enter password for presence/JWT_PASSWORD []: test
+  Retype password for presence/JWT_PASSWORD []: test
+  Warning: Password is too short
+  gopass: Encrypting presence/JWT_PASSWORD for these recipients:
+  - ADFSSDF5646QZEF86741 - 0x5641967419678 - jenkins-username <jenkins-email>
+
+  Do you want to continue? [Y/n/q]: Y
+  Pushed changes to git remote
+
 $ gopass
 
 gopass
@@ -114,8 +118,6 @@ gopass
 $ gopass show presence/JWT_PASSWORD
 test
 ```
-
-
 
 ### On Jenkins 
 
@@ -158,6 +160,7 @@ test
 def admin_username = sh(script: "gopass show -o ${secrets_store_name}/envs/prod/presence/JWT_PASSWORD", returnStdout: true)
 ```
 
+
 ### Useful commands 
 
 - Delete a secret key :
@@ -165,18 +168,47 @@ def admin_username = sh(script: "gopass show -o ${secrets_store_name}/envs/prod/
 gpg --delete-secret-key "username"
 ```
 
-### Optional 
+### Optional
+
+#### Manual GIT configuration (use if previous "store git config" step failed )
+
+##### List secret key 
+
+```
+$ gpg --list-secret-keys --keyid-format LONG
+
+result 
+sec   4096R/3AA5C34371567BD2 2016-03-10 [expires: 2017-03-10]
+uid                          Hubot 
+ssb   4096R/42B317FD4BA89E7A 2016-03-10
+```
+
+##### Add key to GIT config 
+
+```
+git config --local user.signingkey 3AA5C34371567BD2 (Key from list-secret-keys ...) 
+git config --local user.email <same email as gen-key-script>
+git config --local commit.gpgsign true
+```
+
+**IMPORTANT:**
+
+If ubuntu 16.04 :  
+
+```
+git config --local gpg.program gpg2
+```
 
 #### Configure git to use commit signature 
 
-##### verify GIT compatibility (optional)
+##### verify GIT compatibility
 
 ```
 git add .
 git commit -S -m "Initial commit" 
 ```
 
-##### Export gpg plublic key to GitHub (optional)
+##### Export gpg plublic key to GitHub
 
 ```
 $ gpg --armor --export 3AA5C34371567BD2

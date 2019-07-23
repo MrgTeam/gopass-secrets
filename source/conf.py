@@ -17,12 +17,12 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'test'
+project = 'Gopass'
 copyright = '2019, jerome'
 author = 'jerome'
 
 # The full version, including alpha/beta/rc tags
-release = '1'
+release = '1.0.0'
 
 
 # -- General configuration ---------------------------------------------------

@@ -35,8 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Gopass 1.0.0 documentation" href="#"/>
-        <link rel="next" title="Welcome !" href="page1.html"/> 
+    <link rel="top" title="Gopass 1.0.0 documentation" href="#"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,11 +84,29 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="page1.html">Welcome !</a></li>
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to Gopass documentation!</a><ul>
+<li><a class="reference internal" href="#install-gopass">Install Gopass</a><ul>
+<li><a class="reference internal" href="#linux">Linux</a></li>
+<li><a class="reference internal" href="#windows">Windows</a></li>
 </ul>
-
+</li>
+<li><a class="reference internal" href="#install-gpg">Install GPG</a><ul>
+<li><a class="reference internal" href="#id1">Linux</a></li>
+<li><a class="reference internal" href="#id2">Windows</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#generate-jenkins-gpg-keys-whithout-passphrase">Generate Jenkins GPG keys  !! whithout passPhrase !!</a></li>
+<li><a class="reference internal" href="#initialise-password-store">Initialise password store</a></li>
+<li><a class="reference internal" href="#gopass-usage">Gopass usage</a><ul>
+<li><a class="reference internal" href="#create-a-new-secret">Create a new secret</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
             
           
         </div>
@@ -154,17 +171,11 @@
   <div class="section" id="welcome-to-gopass-documentation">
 <h1>Welcome to Gopass documentation!<a class="headerlink" href="#welcome-to-gopass-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="page1.html">Welcome !</a><ul class="simple">
-</ul>
-</li>
-</ul>
 </div>
 <div class="section" id="install-gopass">
 <h2>Install Gopass<a class="headerlink" href="#install-gopass" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="on-linux">
-<h3>On Linux<a class="headerlink" href="#on-linux" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="linux">
+<h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
 <p>Add the package source.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget -q -O- https://api.bintray.com/orgs/gopasspw/keys/gpg/public.key <span class="p">|</span> sudo apt-key add -
 <span class="nb">echo</span> <span class="s2">&quot;deb https://dl.bintray.com/gopasspw/gopass trusty main&quot;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/gopass.list
@@ -173,15 +184,125 @@ sudo apt-get install gopass
 </pre></div>
 </div>
 </div>
+<div class="section" id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<p>You can install gopass by Chocolatey :</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>choco install gopass
+</pre></div>
 </div>
 </div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</div>
+<div class="section" id="install-gpg">
+<h2>Install GPG<a class="headerlink" href="#install-gpg" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Source</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://github.com/gopasspw/gopass/blob/master/docs/setup.md">Doc</a></p>
+</dd>
+</dl>
+<div class="section" id="id1">
+<h3>Linux<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>apt-get install gnupg git rng-tools
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If ubuntu 16.04 use gnupg2</p>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>Windows<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Source</dt>
+<dd class="field-odd"><p><cite>Doc &lt;https://www.gpg4win.org/&lt;</cite></p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="generate-jenkins-gpg-keys-whithout-passphrase">
+<h2>Generate Jenkins GPG keys  !! whithout passPhrase !!<a class="headerlink" href="#generate-jenkins-gpg-keys-whithout-passphrase" title="Permalink to this headline">¶</a></h2>
+<p>Create a gen-key-script file with the following content and run the gpg command to generate the keys in batch mode:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ cat gen-key-script
+Key-Type: <span class="m">1</span>
+Key-Length: <span class="m">2048</span>
+Subkey-Type: <span class="m">1</span>
+Subkey-Length: <span class="m">2048</span>
+Name-Real: &lt;jenkins-username&gt;
+Name-Email: &lt;jenkins-email&gt;
+Expire-Date: 5y
+
+$ gpg --batch --gen-key gen-key-script <span class="o">(</span>no passphrase - click <span class="s2">&quot;OK&quot;</span> <span class="o">)</span>
+
+result
+gpg: clef <span class="m">0</span>.........1 marquée de confiance ultime.
+gpg: revocation certificate stored as <span class="s1">&#39;C:/Users/username/AppData/Roaming/gnupg/openpgp-revocs.d\A2D..................rev&#39;</span>
+
+$ gpg --export-secret-keys -a &lt;jenkins-username&gt; &gt; jenkins-secret-key.asc
+$ gpg --export -a &lt;jenkins-username&gt; &gt; jenkins-public-key.asc
+</pre></div>
+</div>
+</div>
+<div class="section" id="initialise-password-store">
+<h2>Initialise password store<a class="headerlink" href="#initialise-password-store" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p>First create a private GIT repository.</p></li>
+<li><p>Then, let’s start configuring gopass</p></li>
 </ul>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ gopass
+  It seems you are new to gopass. Do you want to run the onboarding wizard? <span class="o">[</span>Y/n/q<span class="o">]</span>: Y <span class="o">(</span><span class="k">select</span> <span class="nb">local</span> store<span class="o">)</span>
+
+  <span class="o">[</span>init<span class="o">]</span> <span class="o">[</span>local<span class="o">]</span> Initializing your <span class="nb">local</span> store ...
+  Please <span class="k">select</span> a private key <span class="k">for</span> encrypting secrets:
+  <span class="o">[</span><span class="m">0</span><span class="o">]</span> gpg - 0x0564165464S4 - jenkins-username &lt;jenkins-email&gt;
+  Please enter the number of a key <span class="o">(</span><span class="m">0</span>-0, <span class="o">[</span>q<span class="o">]</span>uit<span class="o">)</span> <span class="o">[</span><span class="m">0</span><span class="o">]</span>: <span class="m">0</span> <span class="o">(</span><span class="k">select</span> the key id - here <span class="m">0</span><span class="o">)</span>
+
+  Use jenkins-username <span class="o">(</span>jenkins-email<span class="o">)</span> <span class="k">for</span> password store git config? <span class="o">[</span>Y/n/q<span class="o">]</span>: Y
+  <span class="o">[</span>init<span class="o">]</span> <span class="o">[</span>local<span class="o">]</span>  -&gt; OK
+  <span class="o">[</span>init<span class="o">]</span> <span class="o">[</span>local<span class="o">]</span> Configuring your <span class="nb">local</span> store ...
+  <span class="o">[</span>init<span class="o">]</span> <span class="o">[</span>local<span class="o">]</span> Do you want to add a git remote? <span class="o">[</span>y/N/q<span class="o">]</span>: y
+  <span class="o">[</span>init<span class="o">]</span> <span class="o">[</span>local<span class="o">]</span> Configuring the git remote ...
+  Please enter the git remote <span class="k">for</span> your shared store <span class="o">[]</span>: http://git-scale-tools.scale-n-eu.sanofi.com/I0383327/presenceSecrets.git <span class="o">(</span> paste your git remote <span class="o">)</span>
+
+  <span class="o">[</span>init<span class="o">]</span> <span class="o">[</span>local<span class="o">]</span> Do you want to automatically push any changes to the git remote <span class="o">(</span><span class="k">if</span> any<span class="o">)</span>? <span class="o">[</span>Y/n/q<span class="o">]</span>: Y
+  <span class="o">[</span>init<span class="o">]</span> <span class="o">[</span>local<span class="o">]</span> Do you want to always confirm recipients when encrypting? <span class="o">[</span>y/N/q<span class="o">]</span>: y
+  <span class="o">[</span>init<span class="o">]</span> <span class="o">[</span>local<span class="o">]</span>  -&gt; OK
+  gopass <span class="o">(</span>here your empty password store<span class="o">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>By default, the password store is stored in the .password-store GIT directory in home directory.</dt><dd><ul class="simple">
+<li><p>To personalize the directory go [here](<a class="reference external" href="https://github.com/gopasspw/gopass/blob/master/docs/features.md">https://github.com/gopasspw/gopass/blob/master/docs/features.md</a>)</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="gopass-usage">
+<h2>Gopass usage<a class="headerlink" href="#gopass-usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="create-a-new-secret">
+<h3>Create a new secret<a class="headerlink" href="#create-a-new-secret" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ gopass insert presence/JWT_PASSWORD
+  Enter password <span class="k">for</span> presence/JWT_PASSWORD <span class="o">[]</span>: <span class="nb">test</span>
+  Retype password <span class="k">for</span> presence/JWT_PASSWORD <span class="o">[]</span>: <span class="nb">test</span>
+  Warning: Password is too short
+  gopass: Encrypting presence/JWT_PASSWORD <span class="k">for</span> these recipients:
+  - ADFSSDF5646QZEF86741 - 0x5641967419678 - jenkins-username &lt;jenkins-email&gt;
+
+  Do you want to <span class="k">continue</span>? <span class="o">[</span>Y/n/q<span class="o">]</span>: Y
+  Pushed changes to git remote
+
+$ gopass
+
+gopass
+└── presence
+    └── JWT_PASSWORD
+
+$ gopass show presence/JWT_PASSWORD
+<span class="nb">test</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -191,13 +312,6 @@ sudo apt-get install gopass
            </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="page1.html" class="btn btn-neutral float-right" title="Welcome !" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-    </div>
   
 
   <hr/>

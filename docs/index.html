@@ -166,6 +166,12 @@
 <div class="section" id="on-linux">
 <h3>On Linux<a class="headerlink" href="#on-linux" title="Permalink to this headline">¶</a></h3>
 <p>Add the package source.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget -q -O- https://api.bintray.com/orgs/gopasspw/keys/gpg/public.key <span class="p">|</span> sudo apt-key add -
+<span class="nb">echo</span> <span class="s2">&quot;deb https://dl.bintray.com/gopasspw/gopass trusty main&quot;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/gopass.list
+sudo apt-get update
+sudo apt-get install gopass
+</pre></div>
+</div>
 </div>
 </div>
 </div>

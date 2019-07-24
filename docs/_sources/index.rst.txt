@@ -7,6 +7,8 @@
    :maxdepth: 2
    :caption: Contents:
 
+demo
+
 Install Gopass 
 --------------
 
@@ -134,13 +136,12 @@ Create a new secret
      Pushed changes to git remote
 
    $ gopass
-
-   gopass
-   └── presence
-       └── JWT_PASSWORD
+     gopass
+     └── presence
+         └── JWT_PASSWORD
 
    $ gopass show presence/JWT_PASSWORD
-   test
+     test
 
 Jenkins
 ------- 
@@ -180,7 +181,7 @@ Create new credentials
     }
 
 
- * Create pipeline secret with : 
+* Create pipeline secret with : 
 
 .. code-block:: groovy
 

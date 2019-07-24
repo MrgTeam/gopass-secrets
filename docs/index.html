@@ -185,6 +185,7 @@
             
   <div class="toctree-wrapper compound">
 </div>
+<p>demo</p>
 <div class="section" id="install-gopass">
 <h1>Install Gopass<a class="headerlink" href="#install-gopass" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="linux">
@@ -297,13 +298,12 @@ $ gpg --export -a &lt;jenkins-username&gt; &gt; jenkins-public-key.asc
   Pushed changes to git remote
 
 $ gopass
-
-gopass
-└── presence
-    └── JWT_PASSWORD
+  gopass
+  └── presence
+      └── JWT_PASSWORD
 
 $ gopass show presence/JWT_PASSWORD
-<span class="nb">test</span>
+  <span class="nb">test</span>
 </pre></div>
 </div>
 </div>
@@ -319,35 +319,35 @@ $ gopass show presence/JWT_PASSWORD
 <li><p>Gopass crypt unlock :</p></li>
 </ul>
 </div></blockquote>
-<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span>  <span class="c1">// Pipeline //</span>
-   <span class="n">stage</span><span class="o">(</span><span class="s1">&#39;Gopass Crypt Unlock&#39;</span><span class="o">)</span> <span class="o">{</span>
-       <span class="c1">// Import the Jenkins GPG keys</span>
-       <span class="n">withCredentials</span><span class="o">([</span><span class="n">file</span><span class="o">(</span><span class="nl">credentialsId:</span> <span class="s2">&quot;${jenkins_gpg_credentials_id}&quot;</span><span class="o">,</span> <span class="nl">variable:</span> <span class="s1">&#39;JENKINS_GPG_KEYS_FILE&#39;</span><span class="o">)])</span> <span class="o">{</span>
-       <span class="n">sh</span> <span class="s2">&quot;gpg --batch --import ${JENKINS_GPG_KEYS_FILE}&quot;</span>
-       <span class="o">}</span>
-       <span class="c1">// Setup global Git configuration</span>
-       <span class="n">sh</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">       echo &quot;[INFO] Setting up global Git configuration&quot;</span>
-<span class="s2">       git config --global user.name ${jenkins_username}</span>
-<span class="s2">       git config --global user.email ${jenkins_email}</span>
-<span class="s2">       git config --global --list</span>
-<span class="s2">       &quot;&quot;&quot;</span>
-       <span class="c1">// Change the workdir and init gopass secrets store</span>
-       <span class="n">dir</span><span class="o">(</span><span class="s2">&quot;/home/jenkins/${secrets_store_name}&quot;</span><span class="o">){</span>
-       <span class="n">git</span> <span class="nl">credentialsId:</span> <span class="s2">&quot;${jenkins_git_credentials_id}&quot;</span><span class="o">,</span> <span class="nl">branch:</span> <span class="s1">&#39;master&#39;</span><span class="o">,</span> <span class="nl">url:</span> <span class="s2">&quot;${secrets_git_repo_url}&quot;</span>
-       <span class="o">}</span>
-       <span class="n">sh</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">       echo &quot;[INFO] Init Gopass secrets store&quot;</span>
-<span class="s2">       gopass config autosync false</span>
-<span class="s2">       gopass --yes init ${jenkins_email}</span>
-<span class="s2">       gopass --yes mounts add ${secrets_store_name} /home/jenkins/${secrets_store_name}</span>
-<span class="s2">       &quot;&quot;&quot;</span>
-   <span class="o">}</span>
-
-
-<span class="o">*</span> <span class="n">Create</span> <span class="n">pipeline</span> <span class="n">secret</span> <span class="n">with</span> <span class="o">:</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="c1">// Pipeline //</span>
+ <span class="n">stage</span><span class="o">(</span><span class="s1">&#39;Gopass Crypt Unlock&#39;</span><span class="o">)</span> <span class="o">{</span>
+     <span class="c1">// Import the Jenkins GPG keys</span>
+     <span class="n">withCredentials</span><span class="o">([</span><span class="n">file</span><span class="o">(</span><span class="nl">credentialsId:</span> <span class="s2">&quot;${jenkins_gpg_credentials_id}&quot;</span><span class="o">,</span> <span class="nl">variable:</span> <span class="s1">&#39;JENKINS_GPG_KEYS_FILE&#39;</span><span class="o">)])</span> <span class="o">{</span>
+     <span class="n">sh</span> <span class="s2">&quot;gpg --batch --import ${JENKINS_GPG_KEYS_FILE}&quot;</span>
+     <span class="o">}</span>
+     <span class="c1">// Setup global Git configuration</span>
+     <span class="n">sh</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">     echo &quot;[INFO] Setting up global Git configuration&quot;</span>
+<span class="s2">     git config --global user.name ${jenkins_username}</span>
+<span class="s2">     git config --global user.email ${jenkins_email}</span>
+<span class="s2">     git config --global --list</span>
+<span class="s2">     &quot;&quot;&quot;</span>
+     <span class="c1">// Change the workdir and init gopass secrets store</span>
+     <span class="n">dir</span><span class="o">(</span><span class="s2">&quot;/home/jenkins/${secrets_store_name}&quot;</span><span class="o">){</span>
+     <span class="n">git</span> <span class="nl">credentialsId:</span> <span class="s2">&quot;${jenkins_git_credentials_id}&quot;</span><span class="o">,</span> <span class="nl">branch:</span> <span class="s1">&#39;master&#39;</span><span class="o">,</span> <span class="nl">url:</span> <span class="s2">&quot;${secrets_git_repo_url}&quot;</span>
+     <span class="o">}</span>
+     <span class="n">sh</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">     echo &quot;[INFO] Init Gopass secrets store&quot;</span>
+<span class="s2">     gopass config autosync false</span>
+<span class="s2">     gopass --yes init ${jenkins_email}</span>
+<span class="s2">     gopass --yes mounts add ${secrets_store_name} /home/jenkins/${secrets_store_name}</span>
+<span class="s2">     &quot;&quot;&quot;</span>
+ <span class="o">}</span>
 </pre></div>
 </div>
+<ul class="simple">
+<li><p>Create pipeline secret with :</p></li>
+</ul>
 <div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="kt">def</span> <span class="n">admin_username</span> <span class="o">=</span> <span class="n">sh</span><span class="o">(</span><span class="nl">script:</span> <span class="s2">&quot;gopass show -o ${secrets_store_name}/envs/prod/presence/JWT_PASSWORD&quot;</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">)</span>
 </pre></div>
 </div>

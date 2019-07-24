@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to Gopass documentation! &mdash; Gopass 1.0.0 documentation</title>
+  <title>Install Gopass &mdash; Gopass 1.0.0 documentation</title>
   
 
   
@@ -86,8 +86,7 @@
             
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Welcome to Gopass documentation!</a><ul>
-<li><a class="reference internal" href="#install-gopass">Install Gopass</a><ul>
+<li><a class="reference internal" href="#">Install Gopass</a><ul>
 <li><a class="reference internal" href="#linux">Linux</a></li>
 <li><a class="reference internal" href="#windows">Windows</a></li>
 </ul>
@@ -101,6 +100,22 @@
 <li><a class="reference internal" href="#initialise-password-store">Initialise password store</a></li>
 <li><a class="reference internal" href="#gopass-usage">Gopass usage</a><ul>
 <li><a class="reference internal" href="#create-a-new-secret">Create a new secret</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#jenkins">Jenkins</a><ul>
+<li><a class="reference internal" href="#create-new-credentials">Create new credentials</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#useful-commands">Useful commands</a></li>
+<li><a class="reference internal" href="#optional">Optional</a><ul>
+<li><a class="reference internal" href="#manual-git-configuration-use-if-previous-store-git-config-step-failed">Manual GIT configuration (use if previous “store git config” step failed )</a><ul>
+<li><a class="reference internal" href="#list-secret-key">List secret key</a></li>
+<li><a class="reference internal" href="#add-key-to-git-config">Add key to GIT config</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configure-git-to-use-commit-signature">Configure git to use commit signature</a><ul>
+<li><a class="reference internal" href="#verify-git-compatibility">Verify GIT compatibility</a></li>
+<li><a class="reference internal" href="#export-gpg-plublic-key-to-github">Export gpg plublic key to GitHub</a></li>
 </ul>
 </li>
 </ul>
@@ -149,7 +164,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>Welcome to Gopass documentation!</li>
+      <li>Install Gopass</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -168,14 +183,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="welcome-to-gopass-documentation">
-<h1>Welcome to Gopass documentation!<a class="headerlink" href="#welcome-to-gopass-documentation" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
+  <div class="toctree-wrapper compound">
 </div>
 <div class="section" id="install-gopass">
-<h2>Install Gopass<a class="headerlink" href="#install-gopass" title="Permalink to this headline">¶</a></h2>
+<h1>Install Gopass<a class="headerlink" href="#install-gopass" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="linux">
-<h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
+<h2>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
 <p>Add the package source.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget -q -O- https://api.bintray.com/orgs/gopasspw/keys/gpg/public.key <span class="p">|</span> sudo apt-key add -
 <span class="nb">echo</span> <span class="s2">&quot;deb https://dl.bintray.com/gopasspw/gopass trusty main&quot;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/gopass.list
@@ -185,7 +198,7 @@ sudo apt-get install gopass
 </div>
 </div>
 <div class="section" id="windows">
-<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
 <p>You can install gopass by Chocolatey :</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>choco install gopass
 </pre></div>
@@ -193,14 +206,10 @@ sudo apt-get install gopass
 </div>
 </div>
 <div class="section" id="install-gpg">
-<h2>Install GPG<a class="headerlink" href="#install-gpg" title="Permalink to this headline">¶</a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">Source</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://github.com/gopasspw/gopass/blob/master/docs/setup.md">Doc</a></p>
-</dd>
-</dl>
+<h1>Install GPG<a class="headerlink" href="#install-gpg" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://github.com/gopasspw/gopass/blob/master/docs/setup.md">Doc</a></p>
 <div class="section" id="id1">
-<h3>Linux<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h2>Linux<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>apt-get install gnupg git rng-tools
 </pre></div>
 </div>
@@ -210,16 +219,12 @@ sudo apt-get install gopass
 </div>
 </div>
 <div class="section" id="id2">
-<h3>Windows<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<dl class="field-list simple">
-<dt class="field-odd">Source</dt>
-<dd class="field-odd"><p><cite>Doc &lt;https://www.gpg4win.org/&lt;</cite></p>
-</dd>
-</dl>
+<h2>Windows<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p><cite>Doc &lt;https://www.gpg4win.org/&lt;</cite></p>
 </div>
 </div>
 <div class="section" id="generate-jenkins-gpg-keys-whithout-passphrase">
-<h2>Generate Jenkins GPG keys  !! whithout passPhrase !!<a class="headerlink" href="#generate-jenkins-gpg-keys-whithout-passphrase" title="Permalink to this headline">¶</a></h2>
+<h1>Generate Jenkins GPG keys  !! whithout passPhrase !!<a class="headerlink" href="#generate-jenkins-gpg-keys-whithout-passphrase" title="Permalink to this headline">¶</a></h1>
 <p>Create a gen-key-script file with the following content and run the gpg command to generate the keys in batch mode:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ cat gen-key-script
 Key-Type: <span class="m">1</span>
@@ -242,7 +247,7 @@ $ gpg --export -a &lt;jenkins-username&gt; &gt; jenkins-public-key.asc
 </div>
 </div>
 <div class="section" id="initialise-password-store">
-<h2>Initialise password store<a class="headerlink" href="#initialise-password-store" title="Permalink to this headline">¶</a></h2>
+<h1>Initialise password store<a class="headerlink" href="#initialise-password-store" title="Permalink to this headline">¶</a></h1>
 <blockquote>
 <div><ul class="simple">
 <li><p>First create a private GIT repository.</p></li>
@@ -278,9 +283,9 @@ $ gpg --export -a &lt;jenkins-username&gt; &gt; jenkins-public-key.asc
 </dl>
 </div>
 <div class="section" id="gopass-usage">
-<h2>Gopass usage<a class="headerlink" href="#gopass-usage" title="Permalink to this headline">¶</a></h2>
+<h1>Gopass usage<a class="headerlink" href="#gopass-usage" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="create-a-new-secret">
-<h3>Create a new secret<a class="headerlink" href="#create-a-new-secret" title="Permalink to this headline">¶</a></h3>
+<h2>Create a new secret<a class="headerlink" href="#create-a-new-secret" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ gopass insert presence/JWT_PASSWORD
   Enter password <span class="k">for</span> presence/JWT_PASSWORD <span class="o">[]</span>: <span class="nb">test</span>
   Retype password <span class="k">for</span> presence/JWT_PASSWORD <span class="o">[]</span>: <span class="nb">test</span>
@@ -299,6 +304,115 @@ gopass
 
 $ gopass show presence/JWT_PASSWORD
 <span class="nb">test</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="jenkins">
+<h1>Jenkins<a class="headerlink" href="#jenkins" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="create-new-credentials">
+<h2>Create new credentials<a class="headerlink" href="#create-new-credentials" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p>Import jenkins-public-key.asc   -&gt; the id will be use in the pipeline file</p></li>
+<li><p>Set git credentials -&gt; the id will be use in the pipeline file</p></li>
+<li><p>Gopass crypt unlock :</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span>  <span class="c1">// Pipeline //</span>
+   <span class="n">stage</span><span class="o">(</span><span class="s1">&#39;Gopass Crypt Unlock&#39;</span><span class="o">)</span> <span class="o">{</span>
+       <span class="c1">// Import the Jenkins GPG keys</span>
+       <span class="n">withCredentials</span><span class="o">([</span><span class="n">file</span><span class="o">(</span><span class="nl">credentialsId:</span> <span class="s2">&quot;${jenkins_gpg_credentials_id}&quot;</span><span class="o">,</span> <span class="nl">variable:</span> <span class="s1">&#39;JENKINS_GPG_KEYS_FILE&#39;</span><span class="o">)])</span> <span class="o">{</span>
+       <span class="n">sh</span> <span class="s2">&quot;gpg --batch --import ${JENKINS_GPG_KEYS_FILE}&quot;</span>
+       <span class="o">}</span>
+       <span class="c1">// Setup global Git configuration</span>
+       <span class="n">sh</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">       echo &quot;[INFO] Setting up global Git configuration&quot;</span>
+<span class="s2">       git config --global user.name ${jenkins_username}</span>
+<span class="s2">       git config --global user.email ${jenkins_email}</span>
+<span class="s2">       git config --global --list</span>
+<span class="s2">       &quot;&quot;&quot;</span>
+       <span class="c1">// Change the workdir and init gopass secrets store</span>
+       <span class="n">dir</span><span class="o">(</span><span class="s2">&quot;/home/jenkins/${secrets_store_name}&quot;</span><span class="o">){</span>
+       <span class="n">git</span> <span class="nl">credentialsId:</span> <span class="s2">&quot;${jenkins_git_credentials_id}&quot;</span><span class="o">,</span> <span class="nl">branch:</span> <span class="s1">&#39;master&#39;</span><span class="o">,</span> <span class="nl">url:</span> <span class="s2">&quot;${secrets_git_repo_url}&quot;</span>
+       <span class="o">}</span>
+       <span class="n">sh</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">       echo &quot;[INFO] Init Gopass secrets store&quot;</span>
+<span class="s2">       gopass config autosync false</span>
+<span class="s2">       gopass --yes init ${jenkins_email}</span>
+<span class="s2">       gopass --yes mounts add ${secrets_store_name} /home/jenkins/${secrets_store_name}</span>
+<span class="s2">       &quot;&quot;&quot;</span>
+   <span class="o">}</span>
+
+
+<span class="o">*</span> <span class="n">Create</span> <span class="n">pipeline</span> <span class="n">secret</span> <span class="n">with</span> <span class="o">:</span>
+</pre></div>
+</div>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="kt">def</span> <span class="n">admin_username</span> <span class="o">=</span> <span class="n">sh</span><span class="o">(</span><span class="nl">script:</span> <span class="s2">&quot;gopass show -o ${secrets_store_name}/envs/prod/presence/JWT_PASSWORD&quot;</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">)</span>
+</pre></div>
+</div>
+<p><cite>Here a concrete pipeline configuration file &lt;https://git-scale-tools.scale-n-eu.sanofi.com/abessifi/openshift-utils/src/master/cd-pipeline/jenkins/pipeline-with-gopass-integration.groovy&gt;</cite></p>
+</div>
+</div>
+<div class="section" id="useful-commands">
+<h1>Useful commands<a class="headerlink" href="#useful-commands" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><ul class="simple">
+<li><p>Delete a secret key :</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gpg --delete-secret-key <span class="s2">&quot;username&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="optional">
+<h1>Optional<a class="headerlink" href="#optional" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="manual-git-configuration-use-if-previous-store-git-config-step-failed">
+<h2>Manual GIT configuration (use if previous “store git config” step failed )<a class="headerlink" href="#manual-git-configuration-use-if-previous-store-git-config-step-failed" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="list-secret-key">
+<h3>List secret key<a class="headerlink" href="#list-secret-key" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ gpg --list-secret-keys --keyid-format LONG
+
+ result
+ sec   4096R/3AA5C34371567BD2 <span class="m">2016</span>-03-10 <span class="o">[</span>expires: <span class="m">2017</span>-03-10<span class="o">]</span>
+ uid                          Hubot
+ ssb   4096R/42B317FD4BA89E7A <span class="m">2016</span>-03-10
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-key-to-git-config">
+<h3>Add key to GIT config<a class="headerlink" href="#add-key-to-git-config" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If ubuntu 16.04</p>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git config --local gpg.program gpg2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="configure-git-to-use-commit-signature">
+<h2>Configure git to use commit signature<a class="headerlink" href="#configure-git-to-use-commit-signature" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="verify-git-compatibility">
+<h3>Verify GIT compatibility<a class="headerlink" href="#verify-git-compatibility" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git add .
+git commit -S -m <span class="s2">&quot;Initial commit&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="export-gpg-plublic-key-to-github">
+<h3>Export gpg plublic key to GitHub<a class="headerlink" href="#export-gpg-plublic-key-to-github" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>  $ gpg --armor --export 3AA5C34371567BD2
+
+
+* Copy to GitHub settings GPG keys
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>-----BEGIN PGP PUBLIC KEY BLOCK-----
+.
+.
+.
+-----END PGP PUBLIC KEY BLOCK-----
 </pre></div>
 </div>
 </div>

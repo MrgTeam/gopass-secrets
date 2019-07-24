@@ -3,9 +3,6 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Gopass documentation!
-================================
-
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
@@ -39,7 +36,7 @@ You can install gopass by Chocolatey :
 Install GPG
 -----------
 
-:Source: `Doc <https://github.com/gopasspw/gopass/blob/master/docs/setup.md>`_
+`Doc <https://github.com/gopasspw/gopass/blob/master/docs/setup.md>`_
 
 Linux
 ~~~~~
@@ -55,7 +52,7 @@ Linux
 Windows
 ~~~~~~~
 
-:Source: `Doc <https://www.gpg4win.org/<`
+`Doc <https://www.gpg4win.org/<`
 
 Generate Jenkins GPG keys  !! whithout passPhrase !!
 ----------------------------------------------------
@@ -145,3 +142,127 @@ Create a new secret
    $ gopass show presence/JWT_PASSWORD
    test
 
+Jenkins
+------- 
+
+Create new credentials 
+~~~~~~~~~~~~~~~~~~~~~~
+
+ * Import jenkins-public-key.asc   -> the id will be use in the pipeline file
+ * Set git credentials -> the id will be use in the pipeline file
+ * Gopass crypt unlock :
+
+.. code-block:: groovy	
+
+   // Pipeline //
+    stage('Gopass Crypt Unlock') {
+        // Import the Jenkins GPG keys
+        withCredentials([file(credentialsId: "${jenkins_gpg_credentials_id}", variable: 'JENKINS_GPG_KEYS_FILE')]) {
+        sh "gpg --batch --import ${JENKINS_GPG_KEYS_FILE}"
+        }
+        // Setup global Git configuration
+        sh """
+        echo "[INFO] Setting up global Git configuration"
+        git config --global user.name ${jenkins_username}
+        git config --global user.email ${jenkins_email}
+        git config --global --list
+        """
+        // Change the workdir and init gopass secrets store
+        dir("/home/jenkins/${secrets_store_name}"){
+        git credentialsId: "${jenkins_git_credentials_id}", branch: 'master', url: "${secrets_git_repo_url}"
+        }
+        sh """
+        echo "[INFO] Init Gopass secrets store"
+        gopass config autosync false
+        gopass --yes init ${jenkins_email}
+        gopass --yes mounts add ${secrets_store_name} /home/jenkins/${secrets_store_name}
+        """
+    }
+
+
+ * Create pipeline secret with : 
+
+.. code-block:: groovy
+
+   def admin_username = sh(script: "gopass show -o ${secrets_store_name}/envs/prod/presence/JWT_PASSWORD", returnStdout: true)
+
+
+`Here a concrete pipeline configuration file <https://git-scale-tools.scale-n-eu.sanofi.com/abessifi/openshift-utils/src/master/cd-pipeline/jenkins/pipeline-with-gopass-integration.groovy>`
+
+
+Useful commands 
+---------------
+
+ * Delete a secret key :
+
+.. code-block:: shell 
+
+   gpg --delete-secret-key "username"
+
+
+Optional
+--------
+
+Manual GIT configuration (use if previous "store git config" step failed )
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+List secret key 
++++++++++++++++
+
+.. code-block:: shell 
+
+   $ gpg --list-secret-keys --keyid-format LONG
+
+    result 
+    sec   4096R/3AA5C34371567BD2 2016-03-10 [expires: 2017-03-10]
+    uid                          Hubot 
+    ssb   4096R/42B317FD4BA89E7A 2016-03-10
+
+
+Add key to GIT config 
++++++++++++++++++++++
+
+.. code-block 
+
+   git config --local user.signingkey 3AA5C34371567BD2 (Key from list-secret-keys ...) 
+   git config --local user.email <same email as gen-key-script>
+   git config --local commit.gpgsign true
+
+
+
+.. warning:: If ubuntu 16.04   
+
+.. code-block:: shell
+
+   git config --local gpg.program gpg2
+
+
+Configure git to use commit signature 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Verify GIT compatibility
+++++++++++++++++++++++++
+
+.. code-block:: shell
+
+   git add .
+   git commit -S -m "Initial commit" 
+
+
+Export gpg plublic key to GitHub
+++++++++++++++++++++++++++++++++
+
+.. code-block:: shell 
+
+   $ gpg --armor --export 3AA5C34371567BD2
+
+
+ * Copy to GitHub settings GPG keys
+
+.. code-block:: shell
+
+   -----BEGIN PGP PUBLIC KEY BLOCK-----
+   .
+   .
+   .
+   -----END PGP PUBLIC KEY BLOCK-----

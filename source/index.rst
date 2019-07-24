@@ -21,9 +21,9 @@ Summary
 
    install-gopass
    install-gpg
-   generate-gpg-key
+   generate-gpg-keys
    init-password-store
    gopass-usage
    jenkins-integration
-   useful-commmands
+   useful-commands
 

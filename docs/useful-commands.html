@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Useful commands &mdash; Gopass 1.0.0 documentation</title>
+  <title>7. Useful commands &mdash; Gopass 1.0.0 documentation</title>
   
 
   
@@ -35,7 +35,8 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Gopass 1.0.0 documentation" href="index.html"/> 
+    <link rel="top" title="Gopass 1.0.0 documentation" href="index.html"/>
+        <link rel="prev" title="6. Jenkins" href="jenkins-integration.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -84,12 +85,30 @@
               
             
             
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="install-gopass.html">Install Gopass</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install-gpg.html">Install GPG</a></li>
-<li class="toctree-l1"><a class="reference internal" href="init-password-store.html">Initialise password store</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gopass-usage.html">Gopass usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="jenkins-integration.html">Jenkins</a></li>
+              <p class="caption"><span class="caption-text">Gopass with openshift/jenkins</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install-gopass.html">1. Install Gopass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install-gpg.html">2. Install GPG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generate-gpg-keys.html">3. Generate Jenkins GPG keys  !! whithout passPhrase !!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="init-password-store.html">4. Initialise password store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gopass-usage.html">5. Gopass usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jenkins-integration.html">6. Jenkins</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">7. Useful commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#optional">7.1. Optional</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#manual-git-configuration-use-if-previous-store-git-config-step-failed">7.1.1. Manual GIT configuration (use if previous “store git config” step failed )</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#list-secret-key">7.1.1.1. List secret key</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-key-to-git-config">7.1.1.2. Add key to GIT config</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-git-to-use-commit-signature">7.1.2. Configure git to use commit signature</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#verify-git-compatibility">7.1.2.1. Verify GIT compatibility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#export-gpg-plublic-key-to-github">7.1.2.2. Export gpg plublic key to GitHub</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -134,7 +153,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Useful commands</li>
+      <li>7. Useful commands</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -154,7 +173,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="useful-commands">
-<h1>Useful commands<a class="headerlink" href="#useful-commands" title="Permalink to this headline">¶</a></h1>
+<h1>7. Useful commands<a class="headerlink" href="#useful-commands" title="Permalink to this headline">¶</a></h1>
 <blockquote>
 <div><ul class="simple">
 <li><p>Delete a secret key :</p></li>
@@ -164,11 +183,11 @@
 </pre></div>
 </div>
 <div class="section" id="optional">
-<h2>Optional<a class="headerlink" href="#optional" title="Permalink to this headline">¶</a></h2>
+<h2>7.1. Optional<a class="headerlink" href="#optional" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="manual-git-configuration-use-if-previous-store-git-config-step-failed">
-<h3>Manual GIT configuration (use if previous “store git config” step failed )<a class="headerlink" href="#manual-git-configuration-use-if-previous-store-git-config-step-failed" title="Permalink to this headline">¶</a></h3>
+<h3>7.1.1. Manual GIT configuration (use if previous “store git config” step failed )<a class="headerlink" href="#manual-git-configuration-use-if-previous-store-git-config-step-failed" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="list-secret-key">
-<h4>List secret key<a class="headerlink" href="#list-secret-key" title="Permalink to this headline">¶</a></h4>
+<h4>7.1.1.1. List secret key<a class="headerlink" href="#list-secret-key" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ gpg --list-secret-keys --keyid-format LONG
 
  result
@@ -179,7 +198,7 @@
 </div>
 </div>
 <div class="section" id="add-key-to-git-config">
-<h4>Add key to GIT config<a class="headerlink" href="#add-key-to-git-config" title="Permalink to this headline">¶</a></h4>
+<h4>7.1.1.2. Add key to GIT config<a class="headerlink" href="#add-key-to-git-config" title="Permalink to this headline">¶</a></h4>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If ubuntu 16.04</p>
@@ -190,16 +209,16 @@
 </div>
 </div>
 <div class="section" id="configure-git-to-use-commit-signature">
-<h3>Configure git to use commit signature<a class="headerlink" href="#configure-git-to-use-commit-signature" title="Permalink to this headline">¶</a></h3>
+<h3>7.1.2. Configure git to use commit signature<a class="headerlink" href="#configure-git-to-use-commit-signature" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="verify-git-compatibility">
-<h4>Verify GIT compatibility<a class="headerlink" href="#verify-git-compatibility" title="Permalink to this headline">¶</a></h4>
+<h4>7.1.2.1. Verify GIT compatibility<a class="headerlink" href="#verify-git-compatibility" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git add .
 git commit -S -m <span class="s2">&quot;Initial commit&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="export-gpg-plublic-key-to-github">
-<h4>Export gpg plublic key to GitHub<a class="headerlink" href="#export-gpg-plublic-key-to-github" title="Permalink to this headline">¶</a></h4>
+<h4>7.1.2.2. Export gpg plublic key to GitHub<a class="headerlink" href="#export-gpg-plublic-key-to-github" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>  $ gpg --armor --export 3AA5C34371567BD2
 
 
@@ -225,6 +244,13 @@ git commit -S -m <span class="s2">&quot;Initial commit&quot;</span>
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="jenkins-integration.html" class="btn btn-neutral" title="6. Jenkins" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

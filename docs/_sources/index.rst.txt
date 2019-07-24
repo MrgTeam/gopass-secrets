@@ -3,6 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+
+=======
+Summary
+=======
+
+.. admonition:: Useful links
+
+   blabla 
+
 .. toctree::
    :maxdepth: 0
    :numbered:
@@ -12,9 +21,9 @@
 
    install-gopass
    install-gpg
-   generate-gpg-key
+   generate-gpg-keys
    init-password-store
    gopass-usage
    jenkins-integration
-   useful-commmands
+   useful-commands
 

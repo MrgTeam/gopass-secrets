@@ -3,6 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+
+=======
+Summary
+=======
+
+.. admonition:: Useful links
+
+   blabla 
+
 .. toctree::
    :maxdepth: 0
    :numbered:

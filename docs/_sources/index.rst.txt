@@ -8,7 +8,7 @@
    :caption: Contents:
 
 
---------------
+
 Install Gopass 
 --------------
 
@@ -34,7 +34,7 @@ You can install gopass by Chocolatey :
 
    choco install gopass
 
------------
+
 Install GPG
 -----------
 
@@ -56,7 +56,7 @@ Windows
 
 `Doc <https://www.gpg4win.org/>`
 
-----------------------------------------------------
+
 Generate Jenkins GPG keys  !! whithout passPhrase !!
 ----------------------------------------------------
 
@@ -83,7 +83,7 @@ Create a gen-key-script file with the following content and run the gpg command 
    $ gpg --export -a <jenkins-username> > jenkins-public-key.asc
 
 
--------------------------
+
 Initialise password store 
 -------------------------
 
@@ -117,7 +117,7 @@ Initialise password store
 By default, the password store is stored in the .password-store GIT directory in home directory.
  * To personalize the directory go [here](https://github.com/gopasspw/gopass/blob/master/docs/features.md)
 
-------------
+
 Gopass usage
 ------------
 
@@ -144,7 +144,7 @@ Create a new secret
    $ gopass show presence/JWT_PASSWORD
      test
 
--------
+
 Jenkins
 ------- 
 
@@ -192,7 +192,7 @@ Create new credentials
 
 `Here a concrete pipeline configuration file <https://git-scale-tools.scale-n-eu.sanofi.com/abessifi/openshift-utils/src/master/cd-pipeline/jenkins/pipeline-with-gopass-integration.groovy>`
 
----------------
+
 Useful commands 
 ---------------
 

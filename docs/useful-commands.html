@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -9,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; Gopass 1.0.0 documentation</title>
+  <title>Useful commands &mdash; Gopass 1.0.0 documentation</title>
   
 
   
@@ -34,7 +33,7 @@
 
   
         <link rel="index" title="Index"
-              href="#"/>
+              href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Gopass 1.0.0 documentation" href="index.html"/> 
 
@@ -135,12 +134,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Index</li>
+      <li>Useful commands</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
+            <a href="_sources/useful-commands.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -152,40 +153,70 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-
-<h1 id="index">Index</h1>
-
-<div class="genindex-jumpbox">
- <a href="#P"><strong>P</strong></a>
- | <a href="#R"><strong>R</strong></a>
- 
+  <div class="section" id="useful-commands">
+<h1>Useful commands<a class="headerlink" href="#useful-commands" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><ul class="simple">
+<li><p>Delete a secret key :</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gpg --delete-secret-key <span class="s2">&quot;username&quot;</span>
+</pre></div>
 </div>
-<h2 id="P">P</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    Python Enhancement Proposals
+</div>
+<div class="section" id="optional">
+<h1>Optional<a class="headerlink" href="#optional" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="manual-git-configuration-use-if-previous-store-git-config-step-failed">
+<h2>Manual GIT configuration (use if previous “store git config” step failed )<a class="headerlink" href="#manual-git-configuration-use-if-previous-store-git-config-step-failed" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="list-secret-key">
+<h3>List secret key<a class="headerlink" href="#list-secret-key" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ gpg --list-secret-keys --keyid-format LONG
 
-      <ul>
-        <li><a href="demo.html#index-0">PEP 287</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
+ result
+ sec   4096R/3AA5C34371567BD2 <span class="m">2016</span>-03-10 <span class="o">[</span>expires: <span class="m">2017</span>-03-10<span class="o">]</span>
+ uid                          Hubot
+ ssb   4096R/42B317FD4BA89E7A <span class="m">2016</span>-03-10
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-key-to-git-config">
+<h3>Add key to GIT config<a class="headerlink" href="#add-key-to-git-config" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If ubuntu 16.04</p>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git config --local gpg.program gpg2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="configure-git-to-use-commit-signature">
+<h2>Configure git to use commit signature<a class="headerlink" href="#configure-git-to-use-commit-signature" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="verify-git-compatibility">
+<h3>Verify GIT compatibility<a class="headerlink" href="#verify-git-compatibility" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git add .
+git commit -S -m <span class="s2">&quot;Initial commit&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="export-gpg-plublic-key-to-github">
+<h3>Export gpg plublic key to GitHub<a class="headerlink" href="#export-gpg-plublic-key-to-github" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>  $ gpg --armor --export 3AA5C34371567BD2
 
-<h2 id="R">R</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    RFC
 
-      <ul>
-        <li><a href="demo.html#index-1">RFC 2822</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
+* Copy to GitHub settings GPG keys
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>-----BEGIN PGP PUBLIC KEY BLOCK-----
+.
+.
+.
+-----END PGP PUBLIC KEY BLOCK-----
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 
 
            </div>

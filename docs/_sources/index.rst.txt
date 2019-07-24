@@ -5,8 +5,14 @@
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+
 
    install-gopass
+   install-gpg
+   generate-gpg-key
+   init-password-store
+   gopass-usage
+   jenkins-integration
+   useful-commmands
 
 

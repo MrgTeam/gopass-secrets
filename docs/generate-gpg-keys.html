@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -9,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; Gopass 1.0.0 documentation</title>
+  <title>Generate Jenkins GPG keys !! whithout passPhrase !! &mdash; Gopass 1.0.0 documentation</title>
   
 
   
@@ -34,7 +33,7 @@
 
   
         <link rel="index" title="Index"
-              href="#"/>
+              href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Gopass 1.0.0 documentation" href="index.html"/> 
 
@@ -135,12 +134,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Index</li>
+      <li>Generate Jenkins GPG keys  !! whithout passPhrase !!</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
+            <a href="_sources/generate-gpg-keys.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -152,40 +153,29 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
+  <div class="section" id="generate-jenkins-gpg-keys-whithout-passphrase">
+<h1>Generate Jenkins GPG keys  !! whithout passPhrase !!<a class="headerlink" href="#generate-jenkins-gpg-keys-whithout-passphrase" title="Permalink to this headline">¶</a></h1>
+<p>Create a gen-key-script file with the following content and run the gpg command to generate the keys in batch mode:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ cat gen-key-script
+Key-Type: <span class="m">1</span>
+Key-Length: <span class="m">2048</span>
+Subkey-Type: <span class="m">1</span>
+Subkey-Length: <span class="m">2048</span>
+Name-Real: &lt;jenkins-username&gt;
+Name-Email: &lt;jenkins-email&gt;
+Expire-Date: 5y
 
-<h1 id="index">Index</h1>
+$ gpg --batch --gen-key gen-key-script <span class="o">(</span>no passphrase - click <span class="s2">&quot;OK&quot;</span> <span class="o">)</span>
 
-<div class="genindex-jumpbox">
- <a href="#P"><strong>P</strong></a>
- | <a href="#R"><strong>R</strong></a>
- 
+result
+gpg: clef <span class="m">0</span>.........1 marquée de confiance ultime.
+gpg: revocation certificate stored as <span class="s1">&#39;C:/Users/username/AppData/Roaming/gnupg/openpgp-revocs.d\A2D..................rev&#39;</span>
+
+$ gpg --export-secret-keys -a &lt;jenkins-username&gt; &gt; jenkins-secret-key.asc
+$ gpg --export -a &lt;jenkins-username&gt; &gt; jenkins-public-key.asc
+</pre></div>
 </div>
-<h2 id="P">P</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    Python Enhancement Proposals
-
-      <ul>
-        <li><a href="demo.html#index-0">PEP 287</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="R">R</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    RFC
-
-      <ul>
-        <li><a href="demo.html#index-1">RFC 2822</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
+</div>
 
 
            </div>

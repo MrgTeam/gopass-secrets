@@ -4,9 +4,9 @@
    contain the root `toctree` directive.
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 0
    :numbered:
-   :caption: Table of Contents
+   :caption: Gopass with openshift/jenkins
    :name: gopass
 
 

@@ -4,9 +4,8 @@
    contain the root `toctree` directive.
 
 .. toctree::
-   :caption: Table of Contents
-   :maxdepth: 2
    :numbered:
+   :caption: Table of Contents
 
 
    install-gopass

@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Gopass 1.0.0 documentation" href="index.html"/>
-        <link rel="next" title="7. Useful commands" href="useful-commands.html"/>
+        <link rel="next" title="7. Optional" href="optional.html"/>
         <link rel="prev" title="5. Gopass usage" href="gopass-usage.html"/> 
 
   
@@ -90,14 +90,15 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install-gopass.html">1. Install Gopass</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install-gpg.html">2. Install GPG</a></li>
-<li class="toctree-l1"><a class="reference internal" href="generate-gpg-keys.html">3. Generate Jenkins GPG keys  !! whithout passPhrase !!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generate-gpg-keys.html">3. Generate Jenkins GPG keys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="init-password-store.html">4. Initialise password store</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gopass-usage.html">5. Gopass usage</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">6. Jenkins</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#create-new-credentials">6.1. Create new credentials</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="useful-commands.html">7. Useful commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optional.html">7. Optional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useful-commands.html">8. Useful commands</a></li>
 </ul>
 
             
@@ -204,7 +205,99 @@
 <div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="kt">def</span> <span class="n">admin_username</span> <span class="o">=</span> <span class="n">sh</span><span class="o">(</span><span class="nl">script:</span> <span class="s2">&quot;gopass show -o ${secrets_store_name}/envs/prod/presence/JWT_PASSWORD&quot;</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">)</span>
 </pre></div>
 </div>
-<p><cite>Here a concrete pipeline configuration file &lt;https://git-scale-tools.scale-n-eu.sanofi.com/abessifi/openshift-utils/src/master/cd-pipeline/jenkins/pipeline-with-gopass-integration.groovy&gt;</cite></p>
+<div class="admonition-here-a-complete-pipeline-configuration-file admonition">
+<p class="admonition-title">Here a complete pipeline configuration file</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>// Global variables
+def openshift_project_name = &#39;cable-dev&#39;
+def secrets_git_repo_url = &#39;https://git....&#39;
+def secrets_store_name = &#39;test-gopass&#39;
+def jenkins_username = &#39;cable-prod-jenkins&#39;
+def jenkins_email = &#39;cable-prod-jenkins@scale-eu.sanofi.com&#39;
+def jenkins_git_credentials_id = &#39;cable-prod-jenkins-git-credentials&#39;
+def jenkins_gpg_credentials_id = &#39;jenkins-gpg-keys&#39;
+
+// createBasicAuthSecret() creates an OpenShift Secret with one or more key/value pairs.
+def createBasicAuthSecret(String secret_name, String username, String password) {
+
+  def obj = [
+      &quot;kind&quot;: &quot;Secret&quot;,
+      &quot;metadata&quot;: [
+          &quot;name&quot;: &quot;${secret_name}&quot;,
+          &quot;labels&quot;: [
+              &quot;secret&quot;:&quot;test-gopass&quot;
+          ]
+      ],
+      &quot;stringData&quot;: [
+          &quot;username&quot;: &quot;${username}&quot;,
+          &quot;password&quot;: &quot;${password}&quot;
+      ]
+  ]
+  // openshift.create() will marshal the model into JSON, validate and send it to the API server.
+  return openshift.create(obj, &#39;--validate&#39;)
+}
+
+// Pipeline //
+node (&#39;jenkins-slave-gopass&#39;) {
+  stage(&#39;Gopass Crypt Unlock&#39;) {
+    // Import the Jenkins GPG keys
+    withCredentials([file(credentialsId: &quot;${jenkins_gpg_credentials_id}&quot;, variable: &#39;JENKINS_GPG_KEYS_FILE&#39;)]) {
+      sh &quot;gpg --batch --import ${JENKINS_GPG_KEYS_FILE}&quot;
+    }
+    // Setup global Git configuration
+    sh &quot;&quot;&quot;
+      echo &quot;[INFO] Setting up global Git configuration&quot;
+      git config --global user.name ${jenkins_username}
+      git config --global user.email ${jenkins_email}
+      git config --global --list
+    &quot;&quot;&quot;
+    // Change the workdir and init gopass secrets store
+    dir(&quot;/home/jenkins/${secrets_store_name}&quot;){
+      git credentialsId: &quot;${jenkins_git_credentials_id}&quot;, branch: &#39;master&#39;, url: &quot;${secrets_git_repo_url}&quot;
+    }
+    sh &quot;&quot;&quot;
+      echo &quot;[INFO] Init Gopass secrets store&quot;
+      gopass config autosync false
+      gopass --yes init ${jenkins_email}
+      gopass --yes mounts add ${secrets_store_name} /home/jenkins/${secrets_store_name}
+    &quot;&quot;&quot;
+  }
+
+  stage(&#39;Create secrets&#39;) {
+    // Select the OpenShift targeted project/namespace
+    openshift.withCluster() {
+      openshift.withProject( openshift_project_name ) {
+        // Delete all secrets with label &#39;secret:test-gopass&#39;
+        def secrets = openshift.selector(&#39;secret&#39;, [secret: &#39;test-gopass&#39;])
+        if (secrets.exists()) {
+          secrets.delete()
+        }
+        // Create new secret for Grafana app
+        def grafana_secret_name = &#39;grafana-test-credentials&#39;
+        def grafana_admin_username = sh(script: &quot;gopass show -o ${secrets_store_name}/envs/prod/grafana/admin-username&quot;, returnStdout: true)
+        def grafana_admin_password = sh(script: &quot;gopass show -o ${secrets_store_name}/envs/prod/grafana/admin-password&quot;, returnStdout: true)
+
+        // NOTE: To get the value of a binary type secret, it&#39;s required to include the `&lt; /dev/null`
+        // operation at the end of the `gopass binary cat` command to block the STDIN.
+        // Otherwise it won&#39;t work.
+        // ISSUE: https://github.com/gopasspw/gopass/issues/1051
+        // def builder_sa_token = sh(script: &quot;gopass binary cat ${secrets_store_name}/serviceaccounts/tokens/builder &lt; /dev/null&quot;, returnStdout: true)
+
+        // Create the basic-auth secret for Grafana app
+        // createBasicAuthSecret() returns a Selector which will select the resulting object(s)
+        try {
+          def obj = createBasicAuthSecret(grafana_secret_name, grafana_admin_username, grafana_admin_password)
+          obj.describe()
+        } catch (err) {
+          // Best practise: do other staff if needed, print error message and exit the Pipeline
+          error(&quot;Error encountered: ${err}&quot;)
+        }
+      }
+    }
+  }
+}
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -218,7 +311,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="useful-commands.html" class="btn btn-neutral float-right" title="7. Useful commands" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="optional.html" class="btn btn-neutral float-right" title="7. Optional" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="gopass-usage.html" class="btn btn-neutral" title="5. Gopass usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>8. Useful commands &mdash; Gopass 1.0.0 documentation</title>
+  <title>7. Optional &mdash; Gopass 1.0.0 documentation</title>
   
 
   
@@ -36,7 +36,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Gopass 1.0.0 documentation" href="index.html"/>
-        <link rel="prev" title="7. Optional" href="optional.html"/> 
+        <link rel="next" title="8. Useful commands" href="useful-commands.html"/>
+        <link rel="prev" title="6. Jenkins" href="jenkins-integration.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -93,12 +94,20 @@
 <li class="toctree-l1"><a class="reference internal" href="init-password-store.html">4. Initialise password store</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gopass-usage.html">5. Gopass usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="jenkins-integration.html">6. Jenkins</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optional.html">7. Optional</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">8. Useful commands</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#delete-a-secret-key">8.1. Delete a secret key</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#list-secret-keys">8.2. List secret keys</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">7. Optional</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#manual-git-configuration">7.1. Manual GIT configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#list-secret-key">7.1.1. List secret key</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-key-to-git-config">7.1.2. Add key to GIT config</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#configure-git-to-use-commit-signature">7.2. Configure git to use commit signature</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#verify-git-compatibility">7.2.1. Verify GIT compatibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#export-gpg-plublic-key-to-github">7.2.2. Export gpg plublic key to GitHub</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="useful-commands.html">8. Useful commands</a></li>
 </ul>
 
             
@@ -143,13 +152,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>8. Useful commands</li>
+      <li>7. Optional</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/useful-commands.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/optional.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -162,27 +171,65 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="useful-commands">
-<h1>8. Useful commands<a class="headerlink" href="#useful-commands" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="delete-a-secret-key">
-<h2>8.1. Delete a secret key<a class="headerlink" href="#delete-a-secret-key" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gpg --delete-secret-key <span class="s2">&quot;username&quot;</span>
-</pre></div>
-</div>
-</div></blockquote>
-</div>
-<div class="section" id="list-secret-keys">
-<h2>8.2. List secret keys<a class="headerlink" href="#list-secret-keys" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ gpg --list-secret-keys --keyid-format LONG
+  <div class="section" id="optional">
+<h1>7. Optional<a class="headerlink" href="#optional" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="manual-git-configuration">
+<h2>7.1. Manual GIT configuration<a class="headerlink" href="#manual-git-configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="list-secret-key">
+<h3>7.1.1. List secret key<a class="headerlink" href="#list-secret-key" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ gpg --list-secret-keys --keyid-format LONG
+
  result
  sec   4096R/3AA5C34371567BD2 <span class="m">2016</span>-03-10 <span class="o">[</span>expires: <span class="m">2017</span>-03-10<span class="o">]</span>
  uid                          Hubot
  ssb   4096R/42B317FD4BA89E7A <span class="m">2016</span>-03-10
 </pre></div>
 </div>
-</div></blockquote>
+</div>
+<div class="section" id="add-key-to-git-config">
+<h3>7.1.2. Add key to GIT config<a class="headerlink" href="#add-key-to-git-config" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git config --local user.signingkey 3AA5C34371567BD2 <span class="o">(</span>Key from list-secret-keys ...<span class="o">)</span>
+git config --local user.email &lt;same email as gen-key-script&gt;
+git config --local commit.gpgsign <span class="nb">true</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If ubuntu 16.04</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git config --local gpg.program gpg2
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="configure-git-to-use-commit-signature">
+<h2>7.2. Configure git to use commit signature<a class="headerlink" href="#configure-git-to-use-commit-signature" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="verify-git-compatibility">
+<h3>7.2.1. Verify GIT compatibility<a class="headerlink" href="#verify-git-compatibility" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git add .
+git commit -S -m <span class="s2">&quot;Initial commit&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="export-gpg-plublic-key-to-github">
+<h3>7.2.2. Export gpg plublic key to GitHub<a class="headerlink" href="#export-gpg-plublic-key-to-github" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Export the key</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ gpg --armor --export 3AA5C34371567BD2
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Copy the key to GitHub settings GPG keys</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>-----BEGIN PGP PUBLIC KEY BLOCK-----
+.
+.
+.
+-----END PGP PUBLIC KEY BLOCK-----
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -196,8 +243,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="useful-commands.html" class="btn btn-neutral float-right" title="8. Useful commands" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="optional.html" class="btn btn-neutral" title="7. Optional" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="jenkins-integration.html" class="btn btn-neutral" title="6. Jenkins" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

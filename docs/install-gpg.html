@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Gopass 1.0.0 documentation" href="index.html"/>
-        <link rel="next" title="3. Initialise password store" href="init-password-store.html"/>
+        <link rel="next" title="3. Generate Jenkins GPG keys !! whithout passPhrase !!" href="generate-gpg-keys.html"/>
         <link rel="prev" title="1. Install Gopass" href="install-gopass.html"/> 
 
   
@@ -86,7 +86,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+              <p class="caption"><span class="caption-text">Gopass with openshift/jenkins</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install-gopass.html">1. Install Gopass</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2. Install GPG</a><ul>
@@ -94,9 +94,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#windows">2.2. Windows</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="init-password-store.html">3. Initialise password store</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gopass-usage.html">4. Gopass usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="jenkins-integration.html">5. Jenkins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generate-gpg-keys.html">3. Generate Jenkins GPG keys  !! whithout passPhrase !!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="init-password-store.html">4. Initialise password store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gopass-usage.html">5. Gopass usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jenkins-integration.html">6. Jenkins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useful-commands.html">7. Useful commands</a></li>
 </ul>
 
             
@@ -162,20 +164,35 @@
             
   <div class="section" id="install-gpg">
 <h1>2. Install GPG<a class="headerlink" href="#install-gpg" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="https://github.com/gopasspw/gopass/blob/master/docs/setup.md">Doc</a></p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Source</p>
+<p><a class="reference external" href="https://github.com/gopasspw/gopass/blob/master/docs/setup.md">https://github.com/gopasspw/gopass/blob/master/docs/setup.md</a></p>
+</div>
+</div></blockquote>
 <div class="section" id="linux">
 <h2>2.1. Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>To install gpg on Linux just <cite>apt-get install</cite> the following packages</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>apt-get install gnupg git rng-tools
 </pre></div>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If ubuntu 16.04 use gnupg2</p>
+<p>If ubuntu 16.04</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>apt-get install gnupg2 git rng-tools
+</pre></div>
 </div>
+</div>
+</div></blockquote>
 </div>
 <div class="section" id="windows">
 <h2>2.2. Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
-<p><cite>Doc &lt;https://www.gpg4win.org/&gt;</cite></p>
+<blockquote>
+<div><p>To install gpg on windows download gpg4win</p>
+<p><a class="reference external" href="https://www.gpg4win.org/">https://www.gpg4win.org/</a></p>
+</div></blockquote>
 </div>
 </div>
 
@@ -189,7 +206,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="init-password-store.html" class="btn btn-neutral float-right" title="3. Initialise password store" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="generate-gpg-keys.html" class="btn btn-neutral float-right" title="3. Generate Jenkins GPG keys !! whithout passPhrase !!" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="install-gopass.html" class="btn btn-neutral" title="1. Install Gopass" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

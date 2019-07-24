@@ -1,10 +1,9 @@
 -------------------------
 Initialise password store 
 -------------------------
+   * First create a private GIT repository.
 
- * First create a private GIT repository.
-
- * Then, let's start configuring gopass
+   * Then, let's start configuring gopass
 
 .. code-block:: shell
 
@@ -28,8 +27,7 @@ Initialise password store
      [init] [local]  -> OK
      gopass (here your empty password store)
 
-
-By default, the password store is stored in the .password-store GIT directory in home directory.
- * To personalize the directory go [here](https://github.com/gopasspw/gopass/blob/master/docs/features.md)
+By default, the password store is stored in the .password-store GIT directory in home directory
+ * To personalize the directory go https://github.com/gopasspw/gopass/blob/master/docs/features.md
 
 

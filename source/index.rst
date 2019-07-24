@@ -25,5 +25,6 @@ Summary
    init-password-store
    gopass-usage
    jenkins-integration
+   optional
    useful-commands
 

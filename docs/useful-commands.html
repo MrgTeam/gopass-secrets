@@ -163,13 +163,12 @@
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gpg --delete-secret-key <span class="s2">&quot;username&quot;</span>
 </pre></div>
 </div>
-</div>
 <div class="section" id="optional">
-<h1>Optional<a class="headerlink" href="#optional" title="Permalink to this headline">¶</a></h1>
+<h2>Optional<a class="headerlink" href="#optional" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="manual-git-configuration-use-if-previous-store-git-config-step-failed">
-<h2>Manual GIT configuration (use if previous “store git config” step failed )<a class="headerlink" href="#manual-git-configuration-use-if-previous-store-git-config-step-failed" title="Permalink to this headline">¶</a></h2>
+<h3>Manual GIT configuration (use if previous “store git config” step failed )<a class="headerlink" href="#manual-git-configuration-use-if-previous-store-git-config-step-failed" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="list-secret-key">
-<h3>List secret key<a class="headerlink" href="#list-secret-key" title="Permalink to this headline">¶</a></h3>
+<h4>List secret key<a class="headerlink" href="#list-secret-key" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ gpg --list-secret-keys --keyid-format LONG
 
  result
@@ -180,7 +179,7 @@
 </div>
 </div>
 <div class="section" id="add-key-to-git-config">
-<h3>Add key to GIT config<a class="headerlink" href="#add-key-to-git-config" title="Permalink to this headline">¶</a></h3>
+<h4>Add key to GIT config<a class="headerlink" href="#add-key-to-git-config" title="Permalink to this headline">¶</a></h4>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If ubuntu 16.04</p>
@@ -191,16 +190,16 @@
 </div>
 </div>
 <div class="section" id="configure-git-to-use-commit-signature">
-<h2>Configure git to use commit signature<a class="headerlink" href="#configure-git-to-use-commit-signature" title="Permalink to this headline">¶</a></h2>
+<h3>Configure git to use commit signature<a class="headerlink" href="#configure-git-to-use-commit-signature" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="verify-git-compatibility">
-<h3>Verify GIT compatibility<a class="headerlink" href="#verify-git-compatibility" title="Permalink to this headline">¶</a></h3>
+<h4>Verify GIT compatibility<a class="headerlink" href="#verify-git-compatibility" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git add .
 git commit -S -m <span class="s2">&quot;Initial commit&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="export-gpg-plublic-key-to-github">
-<h3>Export gpg plublic key to GitHub<a class="headerlink" href="#export-gpg-plublic-key-to-github" title="Permalink to this headline">¶</a></h3>
+<h4>Export gpg plublic key to GitHub<a class="headerlink" href="#export-gpg-plublic-key-to-github" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>  $ gpg --armor --export 3AA5C34371567BD2
 
 
@@ -213,6 +212,7 @@ git commit -S -m <span class="s2">&quot;Initial commit&quot;</span>
 .
 -----END PGP PUBLIC KEY BLOCK-----
 </pre></div>
+</div>
 </div>
 </div>
 </div>

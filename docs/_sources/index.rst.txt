@@ -7,7 +7,7 @@
    :maxdepth: 2
    :caption: Contents:
 
-demo
+   demo
 
 Install Gopass 
 --------------

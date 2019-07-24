@@ -7,6 +7,7 @@
    :maxdepth: 5
    :numbered:
    :caption: Table of Contents
+   :name: gopass
 
 
    install-gopass

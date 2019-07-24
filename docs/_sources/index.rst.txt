@@ -14,5 +14,5 @@
    gopass-usage
    jenkins-integration
    useful-commmands
-
+   demo
 
